@@ -1,122 +1,69 @@
-//Crie as classes Beer, Cigar, Eletronic, Water - Lembrando que agua é um item, mas não tem taxa... 
-//mas os outros itens tem taxas... Coloque qualquer taxas para esses itens, o valor n importa!//
+// er um pedido... Os pedidos devem cada um ter um numero do pedido(id) - randomico ou incremental assim como os Itens
+// Poder adicionar Itens ao pedido...
+// Itens contém - id, Categoria, description e preço
+// os Itens adicionados devem conter um id - Seram numeros gerados automaticamente de Randomica ou Incremental
 
+// Poder pegar o subtotal do pedido
 
-interface ItemDTO{
-    name: string
-    validity: string
-    
+// poder pegar as taxas
+
+// Poder pegar o total
+
+// Crie as classes Beer, Cigar, Eletronic, Water - Lembrando que agua é um item, mas não tem taxa... 
+// mas os outros itens tem taxas... Coloque qualquer taxas para esses itens, o valor n importa!
+interface ItenDTO{
+
 }
 
-
-
-class Cigarette implements ItemDTO{
-    name: string
-    validity: string
-    tax : number
-    minimunAge: number
-    constructor( name: string,validity: string,minimunAge: number,tax : number){
-        this.name = name
-        this.validity= validity
-        this.minimunAge = minimunAge
-        this.tax = tax
-    }
-}
-class Beer implements ItemDTO{
-    name: string
-    validity: string
-    minimunAge: number
-    tax : number
-
-    constructor( name: string,validity: string,minimunAge: number,tax : number){
-        this.name = name
-        this.validity= validity
-        this.minimunAge = minimunAge
-        this.tax = tax
-    }
-}
-class Eletronic implements ItemDTO{
-    name: string
-    validity: string
-    tax : number
-    constructor( name: string,validity: string,tax : number){
-        this.name = name
-        this.validity= validity
-        this.tax = tax
-    }
-}
-class Watter implements ItemDTO{
-    name: string
-    validity: string
-    mineral: boolean
-    constructor( name: string,validity: string,mineral: boolean){
-        this.name = name
-        this.validity = validity
-        this.mineral = mineral
+class Item implements ItenDTO{
+    id : string
+    categoria:string
+    description:string
+    preco:number
+    constructor(categoria:string,description:string,preco:number){
+            this.id = `${Math.floor(Math.random()* 100000)}`
+            this.categoria = categoria
+            this.description = description
+            this.preco = preco
+    } 
+        }
+abstract class IntenTax extends Item{
+    tax:number 
+    constructor(categoria:string,description:string,preco:number,tax:number){
+        super(categoria,description,preco)
+            this.tax = tax
+            
+        }
+        abstract getTax(): number
         
+ }
+abstract class Beer extends IntenTax{
+     constructor(categoria:string,description:string,preco:number,tax:number){
+        super(categoria,description,preco,tax)
+     }
+     getTax(): number {
+         return 1
+     }
+ }
+ 
+abstract class Cigarette extends IntenTax{
+    constructor(categoria:string,description:string,preco:number,tax:number){
+        super(categoria,description,preco,tax)
+     }
+     getTax(): number {
+        return 77
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// abstract class Pessoa {
-//     protected nome: string
-//     protected idade: number
-//     protected cidade: string
-  
-//     constructor(nome: string, idade: number, cidade: string) {
-//       this.nome = nome
-//       this.idade = idade
-//       this.cidade = cidade
-//     }
-  
-//     abstract exibirDados(): void
-//   }
-  
-//   interface Veiculo {
-//     tipo: string
-//     marca: string
-//     modelo: string
-//     ano: number
-//   }
-  
-//   class Motorista extends Pessoa {
-//     private veiculo: Veiculo
-  
-//     constructor(nome: string, idade: number, cidade: string, carteiraDeMotorista: string, veiculo: Veiculo) {
-//       super(nome, idade, cidade)
-//       this.veiculo = veiculo
-//     }
-  
-//     exibirDados() {
-//       console.log(this.nome, this.idade)
-//     }
-//   }
-  
-//   const zezinDeMaua = new Motorista('Ze Da Silva', 200, 'Mauá', 'Z', {
-//     tipo: 'Carroça',
-//     marca: 'Potrancas',
-//     modelo: 'HIGH PONEI TURBO CONFORT LINE TSI AWD',
-// ano: 1911
-//   })
-  
-  
+abstract class Eletronic extends IntenTax{
+    constructor(categoria:string,description:string,preco:number,tax:number){
+        super(categoria,description,preco,tax)
+     }
+     getTax(): number {
+        return 2
+    }
+}
+abstract class Water extends Item{
+    constructor(categoria:string,description:string,preco:number,tax:number){
+        super(categoria,description,preco)
+     }
+}
