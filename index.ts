@@ -19,27 +19,31 @@ class Item implements ItenDTO{
     id : string
     categoria:string
     description:string
-    preco:number
-    constructor(categoria:string,description:string,preco:number){
+    price:number
+    constructor(categoria:string,description:string,price:number){
             this.id = `${Math.floor(Math.random()* 100000)}`
             this.categoria = categoria
             this.description = description
-            this.preco = preco
+            this.price = price
     } 
         }
 abstract class IntenTax extends Item{
     tax:number 
-    constructor(categoria:string,description:string,preco:number,tax:number){
-        super(categoria,description,preco)
+    constructor(categoria:string,description:string,price:number,tax:number){
+        super(categoria,description,price)
             this.tax = tax
+            
+        }
+        CalTax(): number {
+            return this.price * this.getTax()
             
         }
         abstract getTax(): number
         
  }
 abstract class Beer extends IntenTax{
-     constructor(categoria:string,description:string,preco:number,tax:number){
-        super(categoria,description,preco,tax)
+     constructor(categoria:string,description:string,price:number,tax:number){
+        super(categoria,description,price,tax)
      }
      getTax(): number {
          return 1
@@ -47,23 +51,26 @@ abstract class Beer extends IntenTax{
  }
  
 abstract class Cigarette extends IntenTax{
-    constructor(categoria:string,description:string,preco:number,tax:number){
-        super(categoria,description,preco,tax)
+    constructor(categoria:string,description:string,price:number,tax:number){
+        super(categoria,description,price,tax)
      }
      getTax(): number {
         return 77
     }
 }
 abstract class Eletronic extends IntenTax{
-    constructor(categoria:string,description:string,preco:number,tax:number){
-        super(categoria,description,preco,tax)
+    constructor(categoria:string,description:string,price:number,tax:number){
+        super(categoria,description,price,tax)
      }
      getTax(): number {
         return 2
     }
 }
 abstract class Water extends Item{
-    constructor(categoria:string,description:string,preco:number,tax:number){
-        super(categoria,description,preco)
+    constructor(categoria:string,description:string,price:number,){
+        super(categoria,description,price)
      }
+}
+class Order {
+    
 }
