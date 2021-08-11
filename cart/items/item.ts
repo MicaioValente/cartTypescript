@@ -1,4 +1,4 @@
-import ItemDTO from "../dto/dto"
+import ItemDTO from "../dto/item"
 
 
   
